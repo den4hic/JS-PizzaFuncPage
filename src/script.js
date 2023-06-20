@@ -243,18 +243,91 @@ function createPizza(data) {
 }
 
 let basketOrder = []
+let currentPage = "Усі"
 
-let a = document.querySelectorAll(".pizza-buy-button")
-for(let i = 0; i < a.length; i++) {
-    a[i].addEventListener("click", addBasketButton)
-}
 if(localStorage.basketOrder !== undefined && localStorage.basketOrder !== ""){
     basketOrder = JSON.parse(localStorage.basketOrder)
     basketOrder.forEach(order => createOrder(order.name, order.size, order.weight, order.price, order.count, order.imgSrc))
 }
+
+
+let sortButtons = document.querySelectorAll(".main-button");
+
+function sortPage() {
+    if(currentPage !== this.textContent) {
+        const allPizza = document.querySelectorAll(".pizza-card")
+        const allButtons = document.querySelectorAll(".main-button")
+        allButtons.forEach(item => {
+            if(item.textContent === currentPage) {
+                item.style = "background-color: #fffff5;\n" +
+                    "    color: #f2711d;"
+                this.style = "background-color: #EE8900;\n" +
+                    "    color: white;"
+            }
+        })
+
+        switch (this.textContent) {
+            case "Усі":
+                allPizza.forEach(item => item.style.display = "block")
+                currentPage = "Усі"
+                break
+            case "М'ясні":
+                allPizza.forEach(item => {
+                    if(item.querySelector(".pizza-type").dataset.meat === "false") {
+                        item.style.display = "none"
+                    } else {
+                        item.style.display = "block"
+                    }
+                })
+                currentPage = "М'ясні"
+                break
+            case "З ананасами":
+                allPizza.forEach(item => {
+                    if(item.querySelector(".pizza-type").dataset.pineapple === "false") {
+                        item.style.display = "none"
+                    } else {
+                        item.style.display = "block"
+                    }
+                })
+                currentPage = "З ананасами"
+                break
+            case "З грибами":
+                allPizza.forEach(item => {
+                    if(item.querySelector(".pizza-type").dataset.mushroom === "false") {
+                        item.style.display = "none"
+                    } else {
+                        item.style.display = "block"
+                    }
+                })
+                currentPage = "З грибами"
+                break
+            case "З морепродуктами":
+                allPizza.forEach(item => {
+                    if(item.querySelector(".pizza-type").dataset.seafood === "false") {
+                        item.style.display = "none"
+                    } else {
+                        item.style.display = "block"
+                    }
+                })
+                currentPage = "З морепродуктами"
+                break
+            case "Вега":
+                allPizza.forEach(item => {
+                    if(item.querySelector(".pizza-type").dataset.vega === "false") {
+                        item.style.display = "none"
+                    } else {
+                        item.style.display = "block"
+                    }
+                })
+                currentPage = "Вега"
+                break
+        }
+    }
+}
+
+sortButtons.forEach(item => item.addEventListener("click", sortPage))
+
 let allDeleteButton = document.querySelector(".clear-order")
-
-
 allDeleteButton.addEventListener("click", clear)
 function clear() {
     basketOrder = []

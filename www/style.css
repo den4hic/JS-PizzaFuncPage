@@ -175,6 +175,10 @@ body {
 .main-allPizza-text {
     font-size: 25px;
 }
+.main-allPizza {
+    display: flex;
+    align-items: center;
+}
 .main-button {
     background-color: #fffff5;
     border: none;
