@@ -53,7 +53,7 @@ header div div p {
 .header-badge {
     background-color: #EC861C;
     margin-left: 10px;
-    width: 100px;
+    width: 98.5px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -72,10 +72,15 @@ header div div p {
     font-size: 25px;
     margin-bottom: 14px;
 }
-.header-lower-div {
+.header-lower-div, .header-badge {
+    border-left: 1px solid #D66300;  /* Ліва границя червоного кольору */
+    border-right: 1px solid #D66300;
+    /*border-right: #bebdbd;*/
+}
+.header-lower-div{
     background-color: #EC861C;
     position: fixed;
-    width: 100px;
+    width: 98.5px;
     height: 120px;
     bottom: 0;
     margin-left: 10px;
@@ -519,8 +524,33 @@ body {
         font-size: 15px;
     }
 }
-@media (max-width: 500px) {
+@media (max-width: 450px) {
     .info-div {
         display: none;
+    }
+    .right-section {
+        position: relative;
+        width: 100%;
+        top: auto;
+        right: auto;
+    }
+    .gui-section {
+        top: auto;
+    }
+    .main-main {
+        margin-top: 530px;
+    }
+    .main-menu, .main-section, .footer-info {
+        width: 100%;
+    }
+    .pizza-card {
+        width: 100%;
+    }
+    .order-text {
+        margin-left: 10px;
+        font-size: 10px;
+    }
+    .order-info {
+        width: calc(100% - 40px);
     }
 }

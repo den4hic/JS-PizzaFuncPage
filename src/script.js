@@ -7,6 +7,7 @@ fetch('../src/Pizza.json')
     })
     .then(data => {
         data.forEach(item => createPizza(item))
+        updateOverallQuantity()
     })
     .catch(error => {
         console.error('Помилка:', error);
@@ -254,6 +255,7 @@ if(localStorage.basketOrder !== undefined && localStorage.basketOrder !== ""){
 let sortButtons = document.querySelectorAll(".main-button");
 
 function sortPage() {
+
     if(currentPage !== this.textContent) {
         const allPizza = document.querySelectorAll(".pizza-card")
         const allButtons = document.querySelectorAll(".main-button")
@@ -323,6 +325,7 @@ function sortPage() {
                 break
         }
     }
+    updateOverallQuantity()
 }
 
 sortButtons.forEach(item => item.addEventListener("click", sortPage))
@@ -525,8 +528,17 @@ function updateOverallPrice() {
 }
 
 function updateOverallQuantity() {
-    let count = 0
-    basketOrder.forEach(item => count += Number(item.count))
+    let boughtCount = 0
+    let numberOfPizza = 0
 
-    document.querySelectorAll(".shell strong").forEach(item => item.textContent = count)
+    basketOrder.forEach(item => boughtCount += Number(item.count))
+
+    document.querySelectorAll(".shell strong").forEach(item => item.textContent = boughtCount)
+    document.querySelectorAll(".pizza-card").forEach(item => {
+        if(item.style.display !== "none") {
+            numberOfPizza += 1
+        }
+    })
+
+    document.querySelector(".shell strong").textContent = numberOfPizza
 }
